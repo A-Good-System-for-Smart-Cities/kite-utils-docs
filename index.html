@@ -95,45 +95,49 @@
     </style>
 
 </head>
-<body><div class="pdoc pdoc-index">
-        <a id="Good-Systems-logo" href="https://pdoc.dev">
-            <img src="ut_logo.png"/> alt="pdoc logo"/>
+<body>
+    <div class="pdoc pdoc-index">
+        <a id="Good-Systems-logo" href="https://github.com/A-Good-System-for-Smart-Cities">
+            <img src="ut_logo.png" alt="Good Systems Logo"/>
         </a>
-    <input id="pdoc-search" type="text" placeholder="search" aria-label="search for a module"/>
-    <h5>Available Modules</h5>
-    <div id="pdoc-modules">
-        <a href="KiTE.html">KiTE</a>
-    </div>
-    <script>
-        const modules = ["KiTE"];
-        const module_list = document.getElementById("pdoc-modules");
-        const searchbox = document.getElementById("pdoc-search")
 
-        function render(filt) {
-            filt = filt.toLowerCase();
-            let filtered = filt ? modules.filter(x => x.toLowerCase().includes(filt)) : modules;
-            module_list.innerHTML = filtered.map(
-                root => `
-                    <a
-                    class="${filtered.length === 1 || root === filt ? 'active' : ''}"
-                    href="${root.replaceAll(".", "/")}.html"
-                    >${root}</a>`
-            ).join("");
-        }
+        <input id="pdoc-search" type="text" placeholder="search" aria-label="search for a module"/>
 
-        render("");
+        <h5>Available Modules</h5>
+        <div id="pdoc-modules">
+            <a href="KiTE.html">KiTE</a>
+        </div>
 
-        searchbox.addEventListener("input", (e) => {
-            render(e.target.value);
-        });
-        searchbox.addEventListener("keyup", (e) => {
-            let active = module_list.querySelector("a.active")
-            if (e.key === "Enter" && active) {
-                active.click();
+        <script>
+            const modules = ["KiTE"];
+            const module_list = document.getElementById("pdoc-modules");
+            const searchbox = document.getElementById("pdoc-search")
+
+            function render(filt) {
+                filt = filt.toLowerCase();
+                let filtered = filt ? modules.filter(x => x.toLowerCase().includes(filt)) : modules;
+                module_list.innerHTML = filtered.map(
+                    root => `
+                        <a
+                        class="${filtered.length === 1 || root === filt ? 'active' : ''}"
+                        href="${root.replaceAll(".", "/")}.html"
+                        >${root}</a>`
+                ).join("");
             }
-        })
-        searchbox.focus()
-    </script>
-</div>
+
+            render("");
+
+            searchbox.addEventListener("input", (e) => {
+                render(e.target.value);
+            });
+            searchbox.addEventListener("keyup", (e) => {
+                let active = module_list.querySelector("a.active")
+                if (e.key === "Enter" && active) {
+                    active.click();
+                }
+            })
+            searchbox.focus()
+        </script>
+    </div>
 </body>
 </html>

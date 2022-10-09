@@ -78,26 +78,36 @@
 </span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>
 </span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="c1"># Plot Histogram of X-Test, prob_pos</span>
 </span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="k">def</span> <span class="nf">plot_probability_frequency</span><span class="p">(</span><span class="n">prob_pos</span><span class="p">,</span> <span class="n">ELCE2_</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Name_of_model&quot;</span><span class="p">):</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>    <span class="n">hist</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Histogram</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">prob_pos</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>    <span class="n">ELCE_trace</span> <span class="o">=</span> <span class="n">plot_ELCE2_number_line</span><span class="p">(</span><span class="n">ELCE2_</span><span class="p">)</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>    <span class="n">fig</span> <span class="o">=</span> <span class="n">make_subplots</span><span class="p">(</span><span class="n">rows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">row_heights</span><span class="o">=</span><span class="p">[</span><span class="mf">0.85</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">])</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>    <span class="n">fig</span><span class="o">.</span><span class="n">append_trace</span><span class="p">(</span><span class="n">hist</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>    <span class="n">fig</span><span class="o">.</span><span class="n">append_trace</span><span class="p">(</span><span class="n">ELCE_trace</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> and ELCE2 Estimator&quot;</span><span class="p">)</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>    <span class="k">return</span> <span class="n">fig</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">    Utility to plot histogram of X-Test, prob_pos</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">    Parameters</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="sd">    ----------</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">    prob_pos : numpy-array</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">    ELCE2_ : tuple or int</span>
 </span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="k">def</span> <span class="nf">plot_ELCE2_number_line</span><span class="p">(</span><span class="n">ELCE2_</span><span class="p">):</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="n">ELCE_trace</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>        <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="n">ELCE2_</span> <span class="o">*</span> <span class="mi">100</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;markers&quot;</span><span class="p">,</span> <span class="n">marker_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ELCE2&quot;</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="p">)</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="k">return</span> <span class="n">ELCE_trace</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="sd">kwargs --  label axis</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="sd">Q-Q reliability curves?</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="sd">    name : string</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="sd">        Model Name</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="sd">    Returns</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="sd">    -------</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="sd">    fig : Histogram Plotly Figure</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>    <span class="n">hist</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Histogram</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">prob_pos</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>    <span class="n">ELCE_trace</span> <span class="o">=</span> <span class="n">plot_ELCE2_number_line</span><span class="p">(</span><span class="n">ELCE2_</span><span class="p">)</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>    <span class="n">fig</span> <span class="o">=</span> <span class="n">make_subplots</span><span class="p">(</span><span class="n">rows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">row_heights</span><span class="o">=</span><span class="p">[</span><span class="mf">0.85</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">])</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>    <span class="n">fig</span><span class="o">.</span><span class="n">append_trace</span><span class="p">(</span><span class="n">hist</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>    <span class="n">fig</span><span class="o">.</span><span class="n">append_trace</span><span class="p">(</span><span class="n">ELCE_trace</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> and ELCE2 Estimator&quot;</span><span class="p">)</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>    <span class="k">return</span> <span class="n">fig</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a><span class="k">def</span> <span class="nf">plot_ELCE2_number_line</span><span class="p">(</span><span class="n">ELCE2_</span><span class="p">):</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>    <span class="n">ELCE_trace</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>        <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="n">ELCE2_</span> <span class="o">*</span> <span class="mi">100</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;markers&quot;</span><span class="p">,</span> <span class="n">marker_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ELCE2&quot;</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>    <span class="p">)</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>    <span class="k">return</span> <span class="n">ELCE_trace</span>
 </span></pre></div>
 
 
@@ -114,17 +124,50 @@
     </div>
     <a class="headerlink" href="#plot_probability_frequency"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="plot_probability_frequency-8"><a href="#plot_probability_frequency-8"><span class="linenos"> 8</span></a><span class="k">def</span> <span class="nf">plot_probability_frequency</span><span class="p">(</span><span class="n">prob_pos</span><span class="p">,</span> <span class="n">ELCE2_</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Name_of_model&quot;</span><span class="p">):</span>
-</span><span id="plot_probability_frequency-9"><a href="#plot_probability_frequency-9"><span class="linenos"> 9</span></a>    <span class="n">hist</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Histogram</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">prob_pos</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
-</span><span id="plot_probability_frequency-10"><a href="#plot_probability_frequency-10"><span class="linenos">10</span></a>    <span class="n">ELCE_trace</span> <span class="o">=</span> <span class="n">plot_ELCE2_number_line</span><span class="p">(</span><span class="n">ELCE2_</span><span class="p">)</span>
-</span><span id="plot_probability_frequency-11"><a href="#plot_probability_frequency-11"><span class="linenos">11</span></a>    <span class="n">fig</span> <span class="o">=</span> <span class="n">make_subplots</span><span class="p">(</span><span class="n">rows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">row_heights</span><span class="o">=</span><span class="p">[</span><span class="mf">0.85</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">])</span>
-</span><span id="plot_probability_frequency-12"><a href="#plot_probability_frequency-12"><span class="linenos">12</span></a>    <span class="n">fig</span><span class="o">.</span><span class="n">append_trace</span><span class="p">(</span><span class="n">hist</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-</span><span id="plot_probability_frequency-13"><a href="#plot_probability_frequency-13"><span class="linenos">13</span></a>    <span class="n">fig</span><span class="o">.</span><span class="n">append_trace</span><span class="p">(</span><span class="n">ELCE_trace</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-</span><span id="plot_probability_frequency-14"><a href="#plot_probability_frequency-14"><span class="linenos">14</span></a>    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> and ELCE2 Estimator&quot;</span><span class="p">)</span>
-</span><span id="plot_probability_frequency-15"><a href="#plot_probability_frequency-15"><span class="linenos">15</span></a>    <span class="k">return</span> <span class="n">fig</span>
+</span><span id="plot_probability_frequency-9"><a href="#plot_probability_frequency-9"><span class="linenos"> 9</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="plot_probability_frequency-10"><a href="#plot_probability_frequency-10"><span class="linenos">10</span></a><span class="sd">    Utility to plot histogram of X-Test, prob_pos</span>
+</span><span id="plot_probability_frequency-11"><a href="#plot_probability_frequency-11"><span class="linenos">11</span></a>
+</span><span id="plot_probability_frequency-12"><a href="#plot_probability_frequency-12"><span class="linenos">12</span></a><span class="sd">    Parameters</span>
+</span><span id="plot_probability_frequency-13"><a href="#plot_probability_frequency-13"><span class="linenos">13</span></a><span class="sd">    ----------</span>
+</span><span id="plot_probability_frequency-14"><a href="#plot_probability_frequency-14"><span class="linenos">14</span></a><span class="sd">    prob_pos : numpy-array</span>
+</span><span id="plot_probability_frequency-15"><a href="#plot_probability_frequency-15"><span class="linenos">15</span></a>
+</span><span id="plot_probability_frequency-16"><a href="#plot_probability_frequency-16"><span class="linenos">16</span></a><span class="sd">    ELCE2_ : tuple or int</span>
+</span><span id="plot_probability_frequency-17"><a href="#plot_probability_frequency-17"><span class="linenos">17</span></a>
+</span><span id="plot_probability_frequency-18"><a href="#plot_probability_frequency-18"><span class="linenos">18</span></a><span class="sd">    name : string</span>
+</span><span id="plot_probability_frequency-19"><a href="#plot_probability_frequency-19"><span class="linenos">19</span></a><span class="sd">        Model Name</span>
+</span><span id="plot_probability_frequency-20"><a href="#plot_probability_frequency-20"><span class="linenos">20</span></a>
+</span><span id="plot_probability_frequency-21"><a href="#plot_probability_frequency-21"><span class="linenos">21</span></a><span class="sd">    Returns</span>
+</span><span id="plot_probability_frequency-22"><a href="#plot_probability_frequency-22"><span class="linenos">22</span></a><span class="sd">    -------</span>
+</span><span id="plot_probability_frequency-23"><a href="#plot_probability_frequency-23"><span class="linenos">23</span></a><span class="sd">    fig : Histogram Plotly Figure</span>
+</span><span id="plot_probability_frequency-24"><a href="#plot_probability_frequency-24"><span class="linenos">24</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="plot_probability_frequency-25"><a href="#plot_probability_frequency-25"><span class="linenos">25</span></a>    <span class="n">hist</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Histogram</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">prob_pos</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+</span><span id="plot_probability_frequency-26"><a href="#plot_probability_frequency-26"><span class="linenos">26</span></a>    <span class="n">ELCE_trace</span> <span class="o">=</span> <span class="n">plot_ELCE2_number_line</span><span class="p">(</span><span class="n">ELCE2_</span><span class="p">)</span>
+</span><span id="plot_probability_frequency-27"><a href="#plot_probability_frequency-27"><span class="linenos">27</span></a>    <span class="n">fig</span> <span class="o">=</span> <span class="n">make_subplots</span><span class="p">(</span><span class="n">rows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">row_heights</span><span class="o">=</span><span class="p">[</span><span class="mf">0.85</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">])</span>
+</span><span id="plot_probability_frequency-28"><a href="#plot_probability_frequency-28"><span class="linenos">28</span></a>    <span class="n">fig</span><span class="o">.</span><span class="n">append_trace</span><span class="p">(</span><span class="n">hist</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span><span id="plot_probability_frequency-29"><a href="#plot_probability_frequency-29"><span class="linenos">29</span></a>    <span class="n">fig</span><span class="o">.</span><span class="n">append_trace</span><span class="p">(</span><span class="n">ELCE_trace</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span><span id="plot_probability_frequency-30"><a href="#plot_probability_frequency-30"><span class="linenos">30</span></a>    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> and ELCE2 Estimator&quot;</span><span class="p">)</span>
+</span><span id="plot_probability_frequency-31"><a href="#plot_probability_frequency-31"><span class="linenos">31</span></a>    <span class="k">return</span> <span class="n">fig</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Utility to plot histogram of X-Test, prob_pos</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><p><strong>prob_pos</strong> (numpy-array):</p></li>
+<li><p><strong>ELCE2_</strong> (tuple or int):</p></li>
+<li><p><strong>name</strong> (string):
+Model Name</p></li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<ul>
+<li><strong>fig</strong> (Histogram Plotly Figure):</li>
+</ul>
+</div>
+
 
                 </section>
                 <section id="plot_ELCE2_number_line">
@@ -138,11 +181,11 @@
 
     </div>
     <a class="headerlink" href="#plot_ELCE2_number_line"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="plot_ELCE2_number_line-18"><a href="#plot_ELCE2_number_line-18"><span class="linenos">18</span></a><span class="k">def</span> <span class="nf">plot_ELCE2_number_line</span><span class="p">(</span><span class="n">ELCE2_</span><span class="p">):</span>
-</span><span id="plot_ELCE2_number_line-19"><a href="#plot_ELCE2_number_line-19"><span class="linenos">19</span></a>    <span class="n">ELCE_trace</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
-</span><span id="plot_ELCE2_number_line-20"><a href="#plot_ELCE2_number_line-20"><span class="linenos">20</span></a>        <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="n">ELCE2_</span> <span class="o">*</span> <span class="mi">100</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;markers&quot;</span><span class="p">,</span> <span class="n">marker_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ELCE2&quot;</span>
-</span><span id="plot_ELCE2_number_line-21"><a href="#plot_ELCE2_number_line-21"><span class="linenos">21</span></a>    <span class="p">)</span>
-</span><span id="plot_ELCE2_number_line-22"><a href="#plot_ELCE2_number_line-22"><span class="linenos">22</span></a>    <span class="k">return</span> <span class="n">ELCE_trace</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="plot_ELCE2_number_line-34"><a href="#plot_ELCE2_number_line-34"><span class="linenos">34</span></a><span class="k">def</span> <span class="nf">plot_ELCE2_number_line</span><span class="p">(</span><span class="n">ELCE2_</span><span class="p">):</span>
+</span><span id="plot_ELCE2_number_line-35"><a href="#plot_ELCE2_number_line-35"><span class="linenos">35</span></a>    <span class="n">ELCE_trace</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
+</span><span id="plot_ELCE2_number_line-36"><a href="#plot_ELCE2_number_line-36"><span class="linenos">36</span></a>        <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="n">ELCE2_</span> <span class="o">*</span> <span class="mi">100</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;markers&quot;</span><span class="p">,</span> <span class="n">marker_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ELCE2&quot;</span>
+</span><span id="plot_ELCE2_number_line-37"><a href="#plot_ELCE2_number_line-37"><span class="linenos">37</span></a>    <span class="p">)</span>
+</span><span id="plot_ELCE2_number_line-38"><a href="#plot_ELCE2_number_line-38"><span class="linenos">38</span></a>    <span class="k">return</span> <span class="n">ELCE_trace</span>
 </span></pre></div>
 
 

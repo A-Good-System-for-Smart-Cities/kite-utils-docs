@@ -35,7 +35,7 @@
   <path fill-rule="evenodd" d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
 </svg>                &nbsp;KiTE</a>
 
-<!-- <img src="static/kite_logo.png" style="display: block; margin: 1em auto"> -->
+<img src="logo-kite.jpg" style="display: block; margin: 1em auto">
 
             <input type="search" placeholder="Search..." role="searchbox" aria-label="search"
                    pattern=".+" required>
@@ -186,22 +186,23 @@
 </span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a><span class="k">def</span> <span class="nf">calculate_diffusion_distance_matrix</span><span class="p">(</span><span class="n">diffy_map</span><span class="p">):</span>
 </span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a>    <span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-107"><a href="#L-107"><span class="linenos">107</span></a><span class="sd">    New Distance based on pairwise distance between 2 points&#39; connectivity</span>
-</span><span id="L-108"><a href="#L-108"><span class="linenos">108</span></a><span class="sd">    D^2 = sum_u [ (P^t)_iu - (P^t)_ju ]^2 ... D = dist(p_iu, p_ij)</span>
-</span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a>
-</span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a><span class="sd">    D(xi, xj) ^ 2 = (Pi - Pj)^2</span>
-</span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a>
-</span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a><span class="sd">    Parameters</span>
-</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a><span class="sd">    ----------</span>
-</span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a><span class="sd">    diffy_map : numpy-array</span>
-</span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a><span class="sd">        Diffusion Coordinates/Map</span>
-</span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a>
-</span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a><span class="sd">    Returns</span>
-</span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a><span class="sd">    -------</span>
-</span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a><span class="sd">    numpy-array</span>
-</span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a><span class="sd">        Diffusion Distance Matrix</span>
-</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a>    <span class="n">diffy_distance</span> <span class="o">=</span> <span class="n">pairwise_distances</span><span class="p">(</span><span class="n">diffy_map</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">)</span>
-</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a>    <span class="k">return</span> <span class="n">diffy_distance</span>
+</span><span id="L-108"><a href="#L-108"><span class="linenos">108</span></a>
+</span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a><span class="sd">    D^2 = sum_u [ (P^t)_iu - (P^t)_ju ]^2 ... D = dist(p_iu, p_ij)</span>
+</span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a>
+</span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a><span class="sd">    D(xi, xj) ^ 2 = (Pi - Pj)^2</span>
+</span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a>
+</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a><span class="sd">    Parameters</span>
+</span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a><span class="sd">    ----------</span>
+</span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a><span class="sd">    diffy_map : numpy-array</span>
+</span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a><span class="sd">        Diffusion Coordinates/Map</span>
+</span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a>
+</span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a><span class="sd">    Returns</span>
+</span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a><span class="sd">    -------</span>
+</span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a><span class="sd">    numpy-array</span>
+</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a><span class="sd">        Diffusion Distance Matrix</span>
+</span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a>    <span class="n">diffy_distance</span> <span class="o">=</span> <span class="n">pairwise_distances</span><span class="p">(</span><span class="n">diffy_map</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">)</span>
+</span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a>    <span class="k">return</span> <span class="n">diffy_distance</span>
 </span></pre></div>
 
 
@@ -420,27 +421,29 @@ Number of eigenvectors (used in descending order of magnitude) used to calculate
             <div class="pdoc-code codehilite"><pre><span></span><span id="calculate_diffusion_distance_matrix-106"><a href="#calculate_diffusion_distance_matrix-106"><span class="linenos">106</span></a><span class="k">def</span> <span class="nf">calculate_diffusion_distance_matrix</span><span class="p">(</span><span class="n">diffy_map</span><span class="p">):</span>
 </span><span id="calculate_diffusion_distance_matrix-107"><a href="#calculate_diffusion_distance_matrix-107"><span class="linenos">107</span></a>    <span class="sd">&quot;&quot;&quot;</span>
 </span><span id="calculate_diffusion_distance_matrix-108"><a href="#calculate_diffusion_distance_matrix-108"><span class="linenos">108</span></a><span class="sd">    New Distance based on pairwise distance between 2 points&#39; connectivity</span>
-</span><span id="calculate_diffusion_distance_matrix-109"><a href="#calculate_diffusion_distance_matrix-109"><span class="linenos">109</span></a><span class="sd">    D^2 = sum_u [ (P^t)_iu - (P^t)_ju ]^2 ... D = dist(p_iu, p_ij)</span>
-</span><span id="calculate_diffusion_distance_matrix-110"><a href="#calculate_diffusion_distance_matrix-110"><span class="linenos">110</span></a>
-</span><span id="calculate_diffusion_distance_matrix-111"><a href="#calculate_diffusion_distance_matrix-111"><span class="linenos">111</span></a><span class="sd">    D(xi, xj) ^ 2 = (Pi - Pj)^2</span>
-</span><span id="calculate_diffusion_distance_matrix-112"><a href="#calculate_diffusion_distance_matrix-112"><span class="linenos">112</span></a>
-</span><span id="calculate_diffusion_distance_matrix-113"><a href="#calculate_diffusion_distance_matrix-113"><span class="linenos">113</span></a><span class="sd">    Parameters</span>
-</span><span id="calculate_diffusion_distance_matrix-114"><a href="#calculate_diffusion_distance_matrix-114"><span class="linenos">114</span></a><span class="sd">    ----------</span>
-</span><span id="calculate_diffusion_distance_matrix-115"><a href="#calculate_diffusion_distance_matrix-115"><span class="linenos">115</span></a><span class="sd">    diffy_map : numpy-array</span>
-</span><span id="calculate_diffusion_distance_matrix-116"><a href="#calculate_diffusion_distance_matrix-116"><span class="linenos">116</span></a><span class="sd">        Diffusion Coordinates/Map</span>
-</span><span id="calculate_diffusion_distance_matrix-117"><a href="#calculate_diffusion_distance_matrix-117"><span class="linenos">117</span></a>
-</span><span id="calculate_diffusion_distance_matrix-118"><a href="#calculate_diffusion_distance_matrix-118"><span class="linenos">118</span></a><span class="sd">    Returns</span>
-</span><span id="calculate_diffusion_distance_matrix-119"><a href="#calculate_diffusion_distance_matrix-119"><span class="linenos">119</span></a><span class="sd">    -------</span>
-</span><span id="calculate_diffusion_distance_matrix-120"><a href="#calculate_diffusion_distance_matrix-120"><span class="linenos">120</span></a><span class="sd">    numpy-array</span>
-</span><span id="calculate_diffusion_distance_matrix-121"><a href="#calculate_diffusion_distance_matrix-121"><span class="linenos">121</span></a><span class="sd">        Diffusion Distance Matrix</span>
-</span><span id="calculate_diffusion_distance_matrix-122"><a href="#calculate_diffusion_distance_matrix-122"><span class="linenos">122</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="calculate_diffusion_distance_matrix-123"><a href="#calculate_diffusion_distance_matrix-123"><span class="linenos">123</span></a>    <span class="n">diffy_distance</span> <span class="o">=</span> <span class="n">pairwise_distances</span><span class="p">(</span><span class="n">diffy_map</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">)</span>
-</span><span id="calculate_diffusion_distance_matrix-124"><a href="#calculate_diffusion_distance_matrix-124"><span class="linenos">124</span></a>    <span class="k">return</span> <span class="n">diffy_distance</span>
+</span><span id="calculate_diffusion_distance_matrix-109"><a href="#calculate_diffusion_distance_matrix-109"><span class="linenos">109</span></a>
+</span><span id="calculate_diffusion_distance_matrix-110"><a href="#calculate_diffusion_distance_matrix-110"><span class="linenos">110</span></a><span class="sd">    D^2 = sum_u [ (P^t)_iu - (P^t)_ju ]^2 ... D = dist(p_iu, p_ij)</span>
+</span><span id="calculate_diffusion_distance_matrix-111"><a href="#calculate_diffusion_distance_matrix-111"><span class="linenos">111</span></a>
+</span><span id="calculate_diffusion_distance_matrix-112"><a href="#calculate_diffusion_distance_matrix-112"><span class="linenos">112</span></a><span class="sd">    D(xi, xj) ^ 2 = (Pi - Pj)^2</span>
+</span><span id="calculate_diffusion_distance_matrix-113"><a href="#calculate_diffusion_distance_matrix-113"><span class="linenos">113</span></a>
+</span><span id="calculate_diffusion_distance_matrix-114"><a href="#calculate_diffusion_distance_matrix-114"><span class="linenos">114</span></a><span class="sd">    Parameters</span>
+</span><span id="calculate_diffusion_distance_matrix-115"><a href="#calculate_diffusion_distance_matrix-115"><span class="linenos">115</span></a><span class="sd">    ----------</span>
+</span><span id="calculate_diffusion_distance_matrix-116"><a href="#calculate_diffusion_distance_matrix-116"><span class="linenos">116</span></a><span class="sd">    diffy_map : numpy-array</span>
+</span><span id="calculate_diffusion_distance_matrix-117"><a href="#calculate_diffusion_distance_matrix-117"><span class="linenos">117</span></a><span class="sd">        Diffusion Coordinates/Map</span>
+</span><span id="calculate_diffusion_distance_matrix-118"><a href="#calculate_diffusion_distance_matrix-118"><span class="linenos">118</span></a>
+</span><span id="calculate_diffusion_distance_matrix-119"><a href="#calculate_diffusion_distance_matrix-119"><span class="linenos">119</span></a><span class="sd">    Returns</span>
+</span><span id="calculate_diffusion_distance_matrix-120"><a href="#calculate_diffusion_distance_matrix-120"><span class="linenos">120</span></a><span class="sd">    -------</span>
+</span><span id="calculate_diffusion_distance_matrix-121"><a href="#calculate_diffusion_distance_matrix-121"><span class="linenos">121</span></a><span class="sd">    numpy-array</span>
+</span><span id="calculate_diffusion_distance_matrix-122"><a href="#calculate_diffusion_distance_matrix-122"><span class="linenos">122</span></a><span class="sd">        Diffusion Distance Matrix</span>
+</span><span id="calculate_diffusion_distance_matrix-123"><a href="#calculate_diffusion_distance_matrix-123"><span class="linenos">123</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="calculate_diffusion_distance_matrix-124"><a href="#calculate_diffusion_distance_matrix-124"><span class="linenos">124</span></a>    <span class="n">diffy_distance</span> <span class="o">=</span> <span class="n">pairwise_distances</span><span class="p">(</span><span class="n">diffy_map</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">)</span>
+</span><span id="calculate_diffusion_distance_matrix-125"><a href="#calculate_diffusion_distance_matrix-125"><span class="linenos">125</span></a>    <span class="k">return</span> <span class="n">diffy_distance</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>New Distance based on pairwise distance between 2 points' connectivity
-D^2 = sum_u [ (P^t)_iu - (P^t)_ju ]^2 ... D = dist(p_iu, p_ij)</p>
+            <div class="docstring"><p>New Distance based on pairwise distance between 2 points' connectivity</p>
+
+<p>D^2 = sum_u [ (P^t)_iu - (P^t)_ju ]^2 ... D = dist(p_iu, p_ij)</p>
 
 <p>D(xi, xj) ^ 2 = (Pi - Pj)^2</p>
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="pdoc 12.2.0"/>
+    <meta name="generator" content="pdoc 12.3.0"/>
     <title>KiTE.calibrate API documentation</title>
     <script>
     /*
@@ -201,141 +201,150 @@
 </span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a>
 </span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a><span class="sd">    Parameters</span>
 </span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a><span class="sd">    ----------</span>
-</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a><span class="sd">    y_true : array, shape (n_samples_train,)</span>
-</span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a><span class="sd">        True targets for the training set.</span>
+</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a><span class="sd">    Xtrain : array, shape (n_samples_train,)</span>
+</span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a><span class="sd">        Features used for training</span>
 </span><span id="L-125"><a href="#L-125"><span class="linenos">125</span></a>
-</span><span id="L-126"><a href="#L-126"><span class="linenos">126</span></a><span class="sd">    y_prob_train : array, shape (n_samples_train,)</span>
-</span><span id="L-127"><a href="#L-127"><span class="linenos">127</span></a><span class="sd">        Probabilities of the positive class to train a calibration model.</span>
+</span><span id="L-126"><a href="#L-126"><span class="linenos">126</span></a><span class="sd">    prob_train : array, shape (n_samples_train,)</span>
+</span><span id="L-127"><a href="#L-127"><span class="linenos">127</span></a><span class="sd">        Probabilities of positive class to train a calibration model</span>
 </span><span id="L-128"><a href="#L-128"><span class="linenos">128</span></a>
-</span><span id="L-129"><a href="#L-129"><span class="linenos">129</span></a><span class="sd">    y_prob_test : array, shape (n_samples_test,)</span>
-</span><span id="L-130"><a href="#L-130"><span class="linenos">130</span></a><span class="sd">        Probabilities of the positive class to be calibrated (test set). If None it re-calibrate the training set.</span>
+</span><span id="L-129"><a href="#L-129"><span class="linenos">129</span></a><span class="sd">    Ytrain : array, shape (n_samples_train,)</span>
+</span><span id="L-130"><a href="#L-130"><span class="linenos">130</span></a><span class="sd">        Values used for training</span>
 </span><span id="L-131"><a href="#L-131"><span class="linenos">131</span></a>
-</span><span id="L-132"><a href="#L-132"><span class="linenos">132</span></a><span class="sd">    method: string, &#39;platt&#39;, &#39;isotonic&#39;, &#39;temperature_scaling&#39;, &#39;beta&#39;, &#39;HB&#39;, &#39;BBG&#39;, &#39;ENIR&#39;</span>
-</span><span id="L-133"><a href="#L-133"><span class="linenos">133</span></a><span class="sd">        The method to use for calibration. Can be ‘sigmoid’ which corresponds to Platt’s method</span>
-</span><span id="L-134"><a href="#L-134"><span class="linenos">134</span></a><span class="sd">        (i.e. a logistic regression model) or ‘isotonic’ which is a non-parametric approach.</span>
-</span><span id="L-135"><a href="#L-135"><span class="linenos">135</span></a><span class="sd">        It is not advised to use isotonic calibration with too few calibration samples (&lt;&lt;1000) since it tends to overfit.</span>
-</span><span id="L-136"><a href="#L-136"><span class="linenos">136</span></a>
-</span><span id="L-137"><a href="#L-137"><span class="linenos">137</span></a><span class="sd">    Returns</span>
-</span><span id="L-138"><a href="#L-138"><span class="linenos">138</span></a><span class="sd">    -------</span>
-</span><span id="L-139"><a href="#L-139"><span class="linenos">139</span></a><span class="sd">    array, shape (n_bins,)</span>
-</span><span id="L-140"><a href="#L-140"><span class="linenos">140</span></a><span class="sd">        The calibrated error for test set. (p_calibrated)</span>
-</span><span id="L-141"><a href="#L-141"><span class="linenos">141</span></a>
-</span><span id="L-142"><a href="#L-142"><span class="linenos">142</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-143"><a href="#L-143"><span class="linenos">143</span></a>    <span class="n">probs</span> <span class="o">=</span> <span class="n">prob_train</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="k">if</span> <span class="n">prob_test</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">prob_test</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
-</span><span id="L-144"><a href="#L-144"><span class="linenos">144</span></a>    <span class="n">Xtest</span> <span class="o">=</span> <span class="n">Xtrain</span> <span class="k">if</span> <span class="n">Xtest</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">Xtest</span>
+</span><span id="L-132"><a href="#L-132"><span class="linenos">132</span></a><span class="sd">    Xtest : array, shape (n_samples_test,)</span>
+</span><span id="L-133"><a href="#L-133"><span class="linenos">133</span></a><span class="sd">        Features used for testing</span>
+</span><span id="L-134"><a href="#L-134"><span class="linenos">134</span></a>
+</span><span id="L-135"><a href="#L-135"><span class="linenos">135</span></a><span class="sd">    prob_test : array, shape (n_samples_test,)</span>
+</span><span id="L-136"><a href="#L-136"><span class="linenos">136</span></a><span class="sd">        Probabilities of the positive class to be calibrated (test set). If None it re-calibrate the training set.</span>
+</span><span id="L-137"><a href="#L-137"><span class="linenos">137</span></a>
+</span><span id="L-138"><a href="#L-138"><span class="linenos">138</span></a><span class="sd">    method: string, &#39;platt&#39;, &#39;isotonic&#39;, &#39;temperature_scaling&#39;, &#39;beta&#39;, &#39;HB&#39;, &#39;BBG&#39;, &#39;ENIR&#39;</span>
+</span><span id="L-139"><a href="#L-139"><span class="linenos">139</span></a><span class="sd">        The method to use for calibration. Can be ‘sigmoid’ which corresponds to Platt’s method</span>
+</span><span id="L-140"><a href="#L-140"><span class="linenos">140</span></a><span class="sd">        (i.e. a logistic regression model) or ‘isotonic’ which is a non-parametric approach.</span>
+</span><span id="L-141"><a href="#L-141"><span class="linenos">141</span></a><span class="sd">        It is not advised to use isotonic calibration with too few calibration samples (&lt;&lt;1000) since it tends to overfit.</span>
+</span><span id="L-142"><a href="#L-142"><span class="linenos">142</span></a>
+</span><span id="L-143"><a href="#L-143"><span class="linenos">143</span></a><span class="sd">    **kwargs</span>
+</span><span id="L-144"><a href="#L-144"><span class="linenos">144</span></a><span class="sd">        Additional Args used to fit KRR or EWF</span>
 </span><span id="L-145"><a href="#L-145"><span class="linenos">145</span></a>
-</span><span id="L-146"><a href="#L-146"><span class="linenos">146</span></a>    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;platt&quot;</span><span class="p">:</span>
-</span><span id="L-147"><a href="#L-147"><span class="linenos">147</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
-</span><span id="L-148"><a href="#L-148"><span class="linenos">148</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">Ytrain</span><span class="p">)</span>  <span class="c1"># LR needs X to be 2-dimensional</span>
-</span><span id="L-149"><a href="#L-149"><span class="linenos">149</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">probs</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+</span><span id="L-146"><a href="#L-146"><span class="linenos">146</span></a><span class="sd">    Returns</span>
+</span><span id="L-147"><a href="#L-147"><span class="linenos">147</span></a><span class="sd">    -------</span>
+</span><span id="L-148"><a href="#L-148"><span class="linenos">148</span></a><span class="sd">    array, shape (n_bins,)</span>
+</span><span id="L-149"><a href="#L-149"><span class="linenos">149</span></a><span class="sd">        The calibrated error for test set. (p_calibrated)</span>
 </span><span id="L-150"><a href="#L-150"><span class="linenos">150</span></a>
-</span><span id="L-151"><a href="#L-151"><span class="linenos">151</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;isotonic&quot;</span><span class="p">:</span>
-</span><span id="L-152"><a href="#L-152"><span class="linenos">152</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">IsotonicRegression</span><span class="p">(</span><span class="n">out_of_bounds</span><span class="o">=</span><span class="s2">&quot;clip&quot;</span><span class="p">)</span>
-</span><span id="L-153"><a href="#L-153"><span class="linenos">153</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">)</span>  <span class="c1"># LR needs X to be 2-dimensional</span>
-</span><span id="L-154"><a href="#L-154"><span class="linenos">154</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">probs</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
-</span><span id="L-155"><a href="#L-155"><span class="linenos">155</span></a>
-</span><span id="L-156"><a href="#L-156"><span class="linenos">156</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;temperature_scaling&quot;</span><span class="p">:</span>
-</span><span id="L-157"><a href="#L-157"><span class="linenos">157</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">TemperatureScaling</span><span class="p">()</span>
-</span><span id="L-158"><a href="#L-158"><span class="linenos">158</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">)</span>
-</span><span id="L-159"><a href="#L-159"><span class="linenos">159</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
-</span><span id="L-160"><a href="#L-160"><span class="linenos">160</span></a>
-</span><span id="L-161"><a href="#L-161"><span class="linenos">161</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;beta&quot;</span><span class="p">:</span>
-</span><span id="L-162"><a href="#L-162"><span class="linenos">162</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">BetaCalibration</span><span class="p">()</span>
-</span><span id="L-163"><a href="#L-163"><span class="linenos">163</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">)</span>
-</span><span id="L-164"><a href="#L-164"><span class="linenos">164</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
-</span><span id="L-165"><a href="#L-165"><span class="linenos">165</span></a>
-</span><span id="L-166"><a href="#L-166"><span class="linenos">166</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;HB&quot;</span><span class="p">:</span>
-</span><span id="L-167"><a href="#L-167"><span class="linenos">167</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">HistogramBinning</span><span class="p">()</span>
-</span><span id="L-168"><a href="#L-168"><span class="linenos">168</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">)</span>
-</span><span id="L-169"><a href="#L-169"><span class="linenos">169</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
-</span><span id="L-170"><a href="#L-170"><span class="linenos">170</span></a>
-</span><span id="L-171"><a href="#L-171"><span class="linenos">171</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;BBQ&quot;</span><span class="p">:</span>
-</span><span id="L-172"><a href="#L-172"><span class="linenos">172</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">BBQ</span><span class="p">()</span>
-</span><span id="L-173"><a href="#L-173"><span class="linenos">173</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">)</span>
-</span><span id="L-174"><a href="#L-174"><span class="linenos">174</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
-</span><span id="L-175"><a href="#L-175"><span class="linenos">175</span></a>
-</span><span id="L-176"><a href="#L-176"><span class="linenos">176</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;ENIR&quot;</span><span class="p">:</span>
-</span><span id="L-177"><a href="#L-177"><span class="linenos">177</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">ENIR</span><span class="p">()</span>
-</span><span id="L-178"><a href="#L-178"><span class="linenos">178</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">)</span>
-</span><span id="L-179"><a href="#L-179"><span class="linenos">179</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
-</span><span id="L-180"><a href="#L-180"><span class="linenos">180</span></a>
-</span><span id="L-181"><a href="#L-181"><span class="linenos">181</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;KRR&quot;</span><span class="p">:</span>
-</span><span id="L-182"><a href="#L-182"><span class="linenos">182</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">KRR_calibration</span><span class="p">()</span>
-</span><span id="L-183"><a href="#L-183"><span class="linenos">183</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xtrain</span><span class="p">,</span> <span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span id="L-184"><a href="#L-184"><span class="linenos">184</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xtest</span><span class="p">,</span> <span class="n">probs</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;prob&quot;</span><span class="p">)</span>
-</span><span id="L-185"><a href="#L-185"><span class="linenos">185</span></a>
-</span><span id="L-186"><a href="#L-186"><span class="linenos">186</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;EWF&quot;</span><span class="p">:</span>
-</span><span id="L-187"><a href="#L-187"><span class="linenos">187</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">EWF_calibration</span><span class="p">()</span>
-</span><span id="L-188"><a href="#L-188"><span class="linenos">188</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xtrain</span><span class="p">,</span> <span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span id="L-189"><a href="#L-189"><span class="linenos">189</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xtest</span><span class="p">,</span> <span class="n">probs</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;prob&quot;</span><span class="p">)</span>
-</span><span id="L-190"><a href="#L-190"><span class="linenos">190</span></a>
-</span><span id="L-191"><a href="#L-191"><span class="linenos">191</span></a>    <span class="k">else</span><span class="p">:</span>
-</span><span id="L-192"><a href="#L-192"><span class="linenos">192</span></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Method </span><span class="si">%s</span><span class="s2"> is not defined.&quot;</span> <span class="o">%</span> <span class="n">method</span><span class="p">)</span>
-</span><span id="L-193"><a href="#L-193"><span class="linenos">193</span></a>
-</span><span id="L-194"><a href="#L-194"><span class="linenos">194</span></a>    <span class="n">p_calibrated</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">p_calibrated</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="L-195"><a href="#L-195"><span class="linenos">195</span></a>
-</span><span id="L-196"><a href="#L-196"><span class="linenos">196</span></a>    <span class="c1"># normalize the large numbers and small numbers to one and zero</span>
-</span><span id="L-197"><a href="#L-197"><span class="linenos">197</span></a>    <span class="c1"># p_calibrated[p_calibrated &gt; 1.0] = 1.0</span>
-</span><span id="L-198"><a href="#L-198"><span class="linenos">198</span></a>    <span class="c1"># p_calibrated[p_calibrated &lt; 0.0] = 0.0</span>
+</span><span id="L-151"><a href="#L-151"><span class="linenos">151</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-152"><a href="#L-152"><span class="linenos">152</span></a>    <span class="n">probs</span> <span class="o">=</span> <span class="n">prob_train</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="k">if</span> <span class="n">prob_test</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">prob_test</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+</span><span id="L-153"><a href="#L-153"><span class="linenos">153</span></a>    <span class="n">Xtest</span> <span class="o">=</span> <span class="n">Xtrain</span> <span class="k">if</span> <span class="n">Xtest</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">Xtest</span>
+</span><span id="L-154"><a href="#L-154"><span class="linenos">154</span></a>
+</span><span id="L-155"><a href="#L-155"><span class="linenos">155</span></a>    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;platt&quot;</span><span class="p">:</span>
+</span><span id="L-156"><a href="#L-156"><span class="linenos">156</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+</span><span id="L-157"><a href="#L-157"><span class="linenos">157</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">Ytrain</span><span class="p">)</span>  <span class="c1"># LR needs X to be 2-dimensional</span>
+</span><span id="L-158"><a href="#L-158"><span class="linenos">158</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">probs</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+</span><span id="L-159"><a href="#L-159"><span class="linenos">159</span></a>
+</span><span id="L-160"><a href="#L-160"><span class="linenos">160</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;isotonic&quot;</span><span class="p">:</span>
+</span><span id="L-161"><a href="#L-161"><span class="linenos">161</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">IsotonicRegression</span><span class="p">(</span><span class="n">out_of_bounds</span><span class="o">=</span><span class="s2">&quot;clip&quot;</span><span class="p">)</span>
+</span><span id="L-162"><a href="#L-162"><span class="linenos">162</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">)</span>  <span class="c1"># LR needs X to be 2-dimensional</span>
+</span><span id="L-163"><a href="#L-163"><span class="linenos">163</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">probs</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+</span><span id="L-164"><a href="#L-164"><span class="linenos">164</span></a>
+</span><span id="L-165"><a href="#L-165"><span class="linenos">165</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;temperature_scaling&quot;</span><span class="p">:</span>
+</span><span id="L-166"><a href="#L-166"><span class="linenos">166</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">TemperatureScaling</span><span class="p">()</span>
+</span><span id="L-167"><a href="#L-167"><span class="linenos">167</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">)</span>
+</span><span id="L-168"><a href="#L-168"><span class="linenos">168</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
+</span><span id="L-169"><a href="#L-169"><span class="linenos">169</span></a>
+</span><span id="L-170"><a href="#L-170"><span class="linenos">170</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;beta&quot;</span><span class="p">:</span>
+</span><span id="L-171"><a href="#L-171"><span class="linenos">171</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">BetaCalibration</span><span class="p">()</span>
+</span><span id="L-172"><a href="#L-172"><span class="linenos">172</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">)</span>
+</span><span id="L-173"><a href="#L-173"><span class="linenos">173</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
+</span><span id="L-174"><a href="#L-174"><span class="linenos">174</span></a>
+</span><span id="L-175"><a href="#L-175"><span class="linenos">175</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;HB&quot;</span><span class="p">:</span>
+</span><span id="L-176"><a href="#L-176"><span class="linenos">176</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">HistogramBinning</span><span class="p">()</span>
+</span><span id="L-177"><a href="#L-177"><span class="linenos">177</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">)</span>
+</span><span id="L-178"><a href="#L-178"><span class="linenos">178</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
+</span><span id="L-179"><a href="#L-179"><span class="linenos">179</span></a>
+</span><span id="L-180"><a href="#L-180"><span class="linenos">180</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;BBQ&quot;</span><span class="p">:</span>
+</span><span id="L-181"><a href="#L-181"><span class="linenos">181</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">BBQ</span><span class="p">()</span>
+</span><span id="L-182"><a href="#L-182"><span class="linenos">182</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">)</span>
+</span><span id="L-183"><a href="#L-183"><span class="linenos">183</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
+</span><span id="L-184"><a href="#L-184"><span class="linenos">184</span></a>
+</span><span id="L-185"><a href="#L-185"><span class="linenos">185</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;ENIR&quot;</span><span class="p">:</span>
+</span><span id="L-186"><a href="#L-186"><span class="linenos">186</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">ENIR</span><span class="p">()</span>
+</span><span id="L-187"><a href="#L-187"><span class="linenos">187</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">)</span>
+</span><span id="L-188"><a href="#L-188"><span class="linenos">188</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
+</span><span id="L-189"><a href="#L-189"><span class="linenos">189</span></a>
+</span><span id="L-190"><a href="#L-190"><span class="linenos">190</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;KRR&quot;</span><span class="p">:</span>
+</span><span id="L-191"><a href="#L-191"><span class="linenos">191</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">KRR_calibration</span><span class="p">()</span>
+</span><span id="L-192"><a href="#L-192"><span class="linenos">192</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xtrain</span><span class="p">,</span> <span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span id="L-193"><a href="#L-193"><span class="linenos">193</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xtest</span><span class="p">,</span> <span class="n">probs</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;prob&quot;</span><span class="p">)</span>
+</span><span id="L-194"><a href="#L-194"><span class="linenos">194</span></a>
+</span><span id="L-195"><a href="#L-195"><span class="linenos">195</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;EWF&quot;</span><span class="p">:</span>
+</span><span id="L-196"><a href="#L-196"><span class="linenos">196</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">EWF_calibration</span><span class="p">()</span>
+</span><span id="L-197"><a href="#L-197"><span class="linenos">197</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xtrain</span><span class="p">,</span> <span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span id="L-198"><a href="#L-198"><span class="linenos">198</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xtest</span><span class="p">,</span> <span class="n">probs</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;prob&quot;</span><span class="p">)</span>
 </span><span id="L-199"><a href="#L-199"><span class="linenos">199</span></a>
-</span><span id="L-200"><a href="#L-200"><span class="linenos">200</span></a>    <span class="k">return</span> <span class="n">p_calibrated</span>  <span class="c1"># f-hat -- f(x) = oracle = f-hat + b(x)</span>
-</span><span id="L-201"><a href="#L-201"><span class="linenos">201</span></a>
+</span><span id="L-200"><a href="#L-200"><span class="linenos">200</span></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="L-201"><a href="#L-201"><span class="linenos">201</span></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Method </span><span class="si">%s</span><span class="s2"> is not defined.&quot;</span> <span class="o">%</span> <span class="n">method</span><span class="p">)</span>
 </span><span id="L-202"><a href="#L-202"><span class="linenos">202</span></a>
-</span><span id="L-203"><a href="#L-203"><span class="linenos">203</span></a><span class="k">def</span> <span class="nf">_counts_per_bin</span><span class="p">(</span><span class="n">prob</span><span class="p">,</span> <span class="n">n_bins</span><span class="p">):</span>
-</span><span id="L-204"><a href="#L-204"><span class="linenos">204</span></a>    <span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-205"><a href="#L-205"><span class="linenos">205</span></a><span class="sd">    Taken from https://github.com/scikit-learn/scikit-learn/blob/a24c8b46/sklearn/calibration.py#L513</span>
-</span><span id="L-206"><a href="#L-206"><span class="linenos">206</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-207"><a href="#L-207"><span class="linenos">207</span></a>
-</span><span id="L-208"><a href="#L-208"><span class="linenos">208</span></a>    <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">,</span> <span class="n">n_bins</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-</span><span id="L-209"><a href="#L-209"><span class="linenos">209</span></a>    <span class="n">binids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">digitize</span><span class="p">(</span><span class="n">prob</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
-</span><span id="L-210"><a href="#L-210"><span class="linenos">210</span></a>    <span class="n">bin_total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">binids</span><span class="p">,</span> <span class="n">minlength</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">bins</span><span class="p">))</span>
+</span><span id="L-203"><a href="#L-203"><span class="linenos">203</span></a>    <span class="n">p_calibrated</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">p_calibrated</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="L-204"><a href="#L-204"><span class="linenos">204</span></a>
+</span><span id="L-205"><a href="#L-205"><span class="linenos">205</span></a>    <span class="c1"># normalize the large numbers and small numbers to one and zero</span>
+</span><span id="L-206"><a href="#L-206"><span class="linenos">206</span></a>    <span class="c1"># p_calibrated[p_calibrated &gt; 1.0] = 1.0</span>
+</span><span id="L-207"><a href="#L-207"><span class="linenos">207</span></a>    <span class="c1"># p_calibrated[p_calibrated &lt; 0.0] = 0.0</span>
+</span><span id="L-208"><a href="#L-208"><span class="linenos">208</span></a>
+</span><span id="L-209"><a href="#L-209"><span class="linenos">209</span></a>    <span class="k">return</span> <span class="n">p_calibrated</span>  <span class="c1"># f-hat -- f(x) = oracle = f-hat + b(x)</span>
+</span><span id="L-210"><a href="#L-210"><span class="linenos">210</span></a>
 </span><span id="L-211"><a href="#L-211"><span class="linenos">211</span></a>
-</span><span id="L-212"><a href="#L-212"><span class="linenos">212</span></a>    <span class="n">nonzero</span> <span class="o">=</span> <span class="n">bin_total</span> <span class="o">!=</span> <span class="mi">0</span>
-</span><span id="L-213"><a href="#L-213"><span class="linenos">213</span></a>    <span class="k">return</span> <span class="n">bin_total</span><span class="p">[</span><span class="n">nonzero</span><span class="p">]</span>
-</span><span id="L-214"><a href="#L-214"><span class="linenos">214</span></a>
-</span><span id="L-215"><a href="#L-215"><span class="linenos">215</span></a>
-</span><span id="L-216"><a href="#L-216"><span class="linenos">216</span></a><span class="k">def</span> <span class="nf">calibration_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_prob</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;ECE&quot;</span><span class="p">):</span>
-</span><span id="L-217"><a href="#L-217"><span class="linenos">217</span></a>    <span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-218"><a href="#L-218"><span class="linenos">218</span></a><span class="sd">    Compute calibration error given true targets and predicted probabilities.</span>
-</span><span id="L-219"><a href="#L-219"><span class="linenos">219</span></a><span class="sd">     Calibration curves may also be referred to as reliability diagrams.</span>
+</span><span id="L-212"><a href="#L-212"><span class="linenos">212</span></a><span class="k">def</span> <span class="nf">_counts_per_bin</span><span class="p">(</span><span class="n">prob</span><span class="p">,</span> <span class="n">n_bins</span><span class="p">):</span>
+</span><span id="L-213"><a href="#L-213"><span class="linenos">213</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-214"><a href="#L-214"><span class="linenos">214</span></a><span class="sd">    Taken from https://github.com/scikit-learn/scikit-learn/blob/a24c8b46/sklearn/calibration.py#L513</span>
+</span><span id="L-215"><a href="#L-215"><span class="linenos">215</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-216"><a href="#L-216"><span class="linenos">216</span></a>
+</span><span id="L-217"><a href="#L-217"><span class="linenos">217</span></a>    <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">,</span> <span class="n">n_bins</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span><span id="L-218"><a href="#L-218"><span class="linenos">218</span></a>    <span class="n">binids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">digitize</span><span class="p">(</span><span class="n">prob</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+</span><span id="L-219"><a href="#L-219"><span class="linenos">219</span></a>    <span class="n">bin_total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">binids</span><span class="p">,</span> <span class="n">minlength</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">bins</span><span class="p">))</span>
 </span><span id="L-220"><a href="#L-220"><span class="linenos">220</span></a>
-</span><span id="L-221"><a href="#L-221"><span class="linenos">221</span></a><span class="sd">    Parameters</span>
-</span><span id="L-222"><a href="#L-222"><span class="linenos">222</span></a><span class="sd">    ----------</span>
-</span><span id="L-223"><a href="#L-223"><span class="linenos">223</span></a><span class="sd">    y_true : array, shape (n_samples,)</span>
-</span><span id="L-224"><a href="#L-224"><span class="linenos">224</span></a><span class="sd">        True targets.</span>
-</span><span id="L-225"><a href="#L-225"><span class="linenos">225</span></a>
-</span><span id="L-226"><a href="#L-226"><span class="linenos">226</span></a><span class="sd">    y_prob : array, shape (n_samples,)</span>
-</span><span id="L-227"><a href="#L-227"><span class="linenos">227</span></a><span class="sd">        Probabilities of the positive class.</span>
-</span><span id="L-228"><a href="#L-228"><span class="linenos">228</span></a>
-</span><span id="L-229"><a href="#L-229"><span class="linenos">229</span></a><span class="sd">    method : string, default=&#39;ECE&#39;, {&#39;ECE&#39;, &#39;MCE&#39;, &#39;BS&#39;}</span>
-</span><span id="L-230"><a href="#L-230"><span class="linenos">230</span></a><span class="sd">        Which method to be used to compute calibration error.</span>
-</span><span id="L-231"><a href="#L-231"><span class="linenos">231</span></a>
-</span><span id="L-232"><a href="#L-232"><span class="linenos">232</span></a><span class="sd">    n_bins : int</span>
-</span><span id="L-233"><a href="#L-233"><span class="linenos">233</span></a><span class="sd">        Number of bins. Note that a bigger number requires more data.</span>
+</span><span id="L-221"><a href="#L-221"><span class="linenos">221</span></a>    <span class="n">nonzero</span> <span class="o">=</span> <span class="n">bin_total</span> <span class="o">!=</span> <span class="mi">0</span>
+</span><span id="L-222"><a href="#L-222"><span class="linenos">222</span></a>    <span class="k">return</span> <span class="n">bin_total</span><span class="p">[</span><span class="n">nonzero</span><span class="p">]</span>
+</span><span id="L-223"><a href="#L-223"><span class="linenos">223</span></a>
+</span><span id="L-224"><a href="#L-224"><span class="linenos">224</span></a>
+</span><span id="L-225"><a href="#L-225"><span class="linenos">225</span></a><span class="k">def</span> <span class="nf">calibration_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_prob</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;ECE&quot;</span><span class="p">):</span>
+</span><span id="L-226"><a href="#L-226"><span class="linenos">226</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-227"><a href="#L-227"><span class="linenos">227</span></a><span class="sd">    Compute calibration error given true targets and predicted probabilities.</span>
+</span><span id="L-228"><a href="#L-228"><span class="linenos">228</span></a><span class="sd">     Calibration curves may also be referred to as reliability diagrams.</span>
+</span><span id="L-229"><a href="#L-229"><span class="linenos">229</span></a>
+</span><span id="L-230"><a href="#L-230"><span class="linenos">230</span></a><span class="sd">    Parameters</span>
+</span><span id="L-231"><a href="#L-231"><span class="linenos">231</span></a><span class="sd">    ----------</span>
+</span><span id="L-232"><a href="#L-232"><span class="linenos">232</span></a><span class="sd">    y_true : array, shape (n_samples,)</span>
+</span><span id="L-233"><a href="#L-233"><span class="linenos">233</span></a><span class="sd">        True targets.</span>
 </span><span id="L-234"><a href="#L-234"><span class="linenos">234</span></a>
-</span><span id="L-235"><a href="#L-235"><span class="linenos">235</span></a><span class="sd">    Returns</span>
-</span><span id="L-236"><a href="#L-236"><span class="linenos">236</span></a><span class="sd">    -------</span>
-</span><span id="L-237"><a href="#L-237"><span class="linenos">237</span></a><span class="sd">    float</span>
-</span><span id="L-238"><a href="#L-238"><span class="linenos">238</span></a><span class="sd">        calibration error score</span>
-</span><span id="L-239"><a href="#L-239"><span class="linenos">239</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-235"><a href="#L-235"><span class="linenos">235</span></a><span class="sd">    y_prob : array, shape (n_samples,)</span>
+</span><span id="L-236"><a href="#L-236"><span class="linenos">236</span></a><span class="sd">        Probabilities of the positive class.</span>
+</span><span id="L-237"><a href="#L-237"><span class="linenos">237</span></a>
+</span><span id="L-238"><a href="#L-238"><span class="linenos">238</span></a><span class="sd">    method : string, default=&#39;ECE&#39;, {&#39;ECE&#39;, &#39;MCE&#39;, &#39;BS&#39;}</span>
+</span><span id="L-239"><a href="#L-239"><span class="linenos">239</span></a><span class="sd">        Which method to be used to compute calibration error.</span>
 </span><span id="L-240"><a href="#L-240"><span class="linenos">240</span></a>
-</span><span id="L-241"><a href="#L-241"><span class="linenos">241</span></a>    <span class="c1"># compute fraction of positive cases per y_prob in a bin.</span>
-</span><span id="L-242"><a href="#L-242"><span class="linenos">242</span></a>    <span class="c1"># See scikit-learn documentation for details</span>
-</span><span id="L-243"><a href="#L-243"><span class="linenos">243</span></a>    <span class="n">fraction_of_positives</span><span class="p">,</span> <span class="n">mean_predicted_value</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span>
-</span><span id="L-244"><a href="#L-244"><span class="linenos">244</span></a>        <span class="n">y_true</span><span class="p">,</span> <span class="n">y_prob</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;uniform&quot;</span>
-</span><span id="L-245"><a href="#L-245"><span class="linenos">245</span></a>    <span class="p">)</span>
-</span><span id="L-246"><a href="#L-246"><span class="linenos">246</span></a>
-</span><span id="L-247"><a href="#L-247"><span class="linenos">247</span></a>    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;ECE&quot;</span><span class="p">:</span>
-</span><span id="L-248"><a href="#L-248"><span class="linenos">248</span></a>        <span class="n">hist_count</span> <span class="o">=</span> <span class="n">_counts_per_bin</span><span class="p">(</span><span class="n">y_prob</span><span class="p">,</span> <span class="n">n_bins</span><span class="p">)</span>
-</span><span id="L-249"><a href="#L-249"><span class="linenos">249</span></a>        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
-</span><span id="L-250"><a href="#L-250"><span class="linenos">250</span></a>            <span class="n">hist_count</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">fraction_of_positives</span> <span class="o">-</span> <span class="n">mean_predicted_value</span><span class="p">)</span>
-</span><span id="L-251"><a href="#L-251"><span class="linenos">251</span></a>        <span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">hist_count</span><span class="p">)</span>
-</span><span id="L-252"><a href="#L-252"><span class="linenos">252</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;MCE&quot;</span><span class="p">:</span>
-</span><span id="L-253"><a href="#L-253"><span class="linenos">253</span></a>        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">fraction_of_positives</span> <span class="o">-</span> <span class="n">mean_predicted_value</span><span class="p">))</span>
-</span><span id="L-254"><a href="#L-254"><span class="linenos">254</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;BS&quot;</span><span class="p">:</span>
-</span><span id="L-255"><a href="#L-255"><span class="linenos">255</span></a>        <span class="k">return</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_prob</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="L-256"><a href="#L-256"><span class="linenos">256</span></a>    <span class="k">else</span><span class="p">:</span>
-</span><span id="L-257"><a href="#L-257"><span class="linenos">257</span></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Method </span><span class="si">%s</span><span class="s2"> is not defined.&quot;</span> <span class="o">%</span> <span class="n">method</span><span class="p">)</span>
+</span><span id="L-241"><a href="#L-241"><span class="linenos">241</span></a><span class="sd">    n_bins : int</span>
+</span><span id="L-242"><a href="#L-242"><span class="linenos">242</span></a><span class="sd">        Number of bins. Note that a bigger number requires more data.</span>
+</span><span id="L-243"><a href="#L-243"><span class="linenos">243</span></a>
+</span><span id="L-244"><a href="#L-244"><span class="linenos">244</span></a><span class="sd">    Returns</span>
+</span><span id="L-245"><a href="#L-245"><span class="linenos">245</span></a><span class="sd">    -------</span>
+</span><span id="L-246"><a href="#L-246"><span class="linenos">246</span></a><span class="sd">    float</span>
+</span><span id="L-247"><a href="#L-247"><span class="linenos">247</span></a><span class="sd">        calibration error score</span>
+</span><span id="L-248"><a href="#L-248"><span class="linenos">248</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-249"><a href="#L-249"><span class="linenos">249</span></a>
+</span><span id="L-250"><a href="#L-250"><span class="linenos">250</span></a>    <span class="c1"># compute fraction of positive cases per y_prob in a bin.</span>
+</span><span id="L-251"><a href="#L-251"><span class="linenos">251</span></a>    <span class="c1"># See scikit-learn documentation for details</span>
+</span><span id="L-252"><a href="#L-252"><span class="linenos">252</span></a>    <span class="n">fraction_of_positives</span><span class="p">,</span> <span class="n">mean_predicted_value</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span>
+</span><span id="L-253"><a href="#L-253"><span class="linenos">253</span></a>        <span class="n">y_true</span><span class="p">,</span> <span class="n">y_prob</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;uniform&quot;</span>
+</span><span id="L-254"><a href="#L-254"><span class="linenos">254</span></a>    <span class="p">)</span>
+</span><span id="L-255"><a href="#L-255"><span class="linenos">255</span></a>
+</span><span id="L-256"><a href="#L-256"><span class="linenos">256</span></a>    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;ECE&quot;</span><span class="p">:</span>
+</span><span id="L-257"><a href="#L-257"><span class="linenos">257</span></a>        <span class="n">hist_count</span> <span class="o">=</span> <span class="n">_counts_per_bin</span><span class="p">(</span><span class="n">y_prob</span><span class="p">,</span> <span class="n">n_bins</span><span class="p">)</span>
+</span><span id="L-258"><a href="#L-258"><span class="linenos">258</span></a>        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+</span><span id="L-259"><a href="#L-259"><span class="linenos">259</span></a>            <span class="n">hist_count</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">fraction_of_positives</span> <span class="o">-</span> <span class="n">mean_predicted_value</span><span class="p">)</span>
+</span><span id="L-260"><a href="#L-260"><span class="linenos">260</span></a>        <span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">hist_count</span><span class="p">)</span>
+</span><span id="L-261"><a href="#L-261"><span class="linenos">261</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;MCE&quot;</span><span class="p">:</span>
+</span><span id="L-262"><a href="#L-262"><span class="linenos">262</span></a>        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">fraction_of_positives</span> <span class="o">-</span> <span class="n">mean_predicted_value</span><span class="p">))</span>
+</span><span id="L-263"><a href="#L-263"><span class="linenos">263</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;BS&quot;</span><span class="p">:</span>
+</span><span id="L-264"><a href="#L-264"><span class="linenos">264</span></a>        <span class="k">return</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_prob</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="L-265"><a href="#L-265"><span class="linenos">265</span></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="L-266"><a href="#L-266"><span class="linenos">266</span></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Method </span><span class="si">%s</span><span class="s2"> is not defined.&quot;</span> <span class="o">%</span> <span class="n">method</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -541,84 +550,93 @@ the theoretical credible level alpha</li>
 </span><span id="calibrate-121"><a href="#calibrate-121"><span class="linenos">121</span></a>
 </span><span id="calibrate-122"><a href="#calibrate-122"><span class="linenos">122</span></a><span class="sd">    Parameters</span>
 </span><span id="calibrate-123"><a href="#calibrate-123"><span class="linenos">123</span></a><span class="sd">    ----------</span>
-</span><span id="calibrate-124"><a href="#calibrate-124"><span class="linenos">124</span></a><span class="sd">    y_true : array, shape (n_samples_train,)</span>
-</span><span id="calibrate-125"><a href="#calibrate-125"><span class="linenos">125</span></a><span class="sd">        True targets for the training set.</span>
+</span><span id="calibrate-124"><a href="#calibrate-124"><span class="linenos">124</span></a><span class="sd">    Xtrain : array, shape (n_samples_train,)</span>
+</span><span id="calibrate-125"><a href="#calibrate-125"><span class="linenos">125</span></a><span class="sd">        Features used for training</span>
 </span><span id="calibrate-126"><a href="#calibrate-126"><span class="linenos">126</span></a>
-</span><span id="calibrate-127"><a href="#calibrate-127"><span class="linenos">127</span></a><span class="sd">    y_prob_train : array, shape (n_samples_train,)</span>
-</span><span id="calibrate-128"><a href="#calibrate-128"><span class="linenos">128</span></a><span class="sd">        Probabilities of the positive class to train a calibration model.</span>
+</span><span id="calibrate-127"><a href="#calibrate-127"><span class="linenos">127</span></a><span class="sd">    prob_train : array, shape (n_samples_train,)</span>
+</span><span id="calibrate-128"><a href="#calibrate-128"><span class="linenos">128</span></a><span class="sd">        Probabilities of positive class to train a calibration model</span>
 </span><span id="calibrate-129"><a href="#calibrate-129"><span class="linenos">129</span></a>
-</span><span id="calibrate-130"><a href="#calibrate-130"><span class="linenos">130</span></a><span class="sd">    y_prob_test : array, shape (n_samples_test,)</span>
-</span><span id="calibrate-131"><a href="#calibrate-131"><span class="linenos">131</span></a><span class="sd">        Probabilities of the positive class to be calibrated (test set). If None it re-calibrate the training set.</span>
+</span><span id="calibrate-130"><a href="#calibrate-130"><span class="linenos">130</span></a><span class="sd">    Ytrain : array, shape (n_samples_train,)</span>
+</span><span id="calibrate-131"><a href="#calibrate-131"><span class="linenos">131</span></a><span class="sd">        Values used for training</span>
 </span><span id="calibrate-132"><a href="#calibrate-132"><span class="linenos">132</span></a>
-</span><span id="calibrate-133"><a href="#calibrate-133"><span class="linenos">133</span></a><span class="sd">    method: string, &#39;platt&#39;, &#39;isotonic&#39;, &#39;temperature_scaling&#39;, &#39;beta&#39;, &#39;HB&#39;, &#39;BBG&#39;, &#39;ENIR&#39;</span>
-</span><span id="calibrate-134"><a href="#calibrate-134"><span class="linenos">134</span></a><span class="sd">        The method to use for calibration. Can be ‘sigmoid’ which corresponds to Platt’s method</span>
-</span><span id="calibrate-135"><a href="#calibrate-135"><span class="linenos">135</span></a><span class="sd">        (i.e. a logistic regression model) or ‘isotonic’ which is a non-parametric approach.</span>
-</span><span id="calibrate-136"><a href="#calibrate-136"><span class="linenos">136</span></a><span class="sd">        It is not advised to use isotonic calibration with too few calibration samples (&lt;&lt;1000) since it tends to overfit.</span>
-</span><span id="calibrate-137"><a href="#calibrate-137"><span class="linenos">137</span></a>
-</span><span id="calibrate-138"><a href="#calibrate-138"><span class="linenos">138</span></a><span class="sd">    Returns</span>
-</span><span id="calibrate-139"><a href="#calibrate-139"><span class="linenos">139</span></a><span class="sd">    -------</span>
-</span><span id="calibrate-140"><a href="#calibrate-140"><span class="linenos">140</span></a><span class="sd">    array, shape (n_bins,)</span>
-</span><span id="calibrate-141"><a href="#calibrate-141"><span class="linenos">141</span></a><span class="sd">        The calibrated error for test set. (p_calibrated)</span>
-</span><span id="calibrate-142"><a href="#calibrate-142"><span class="linenos">142</span></a>
-</span><span id="calibrate-143"><a href="#calibrate-143"><span class="linenos">143</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="calibrate-144"><a href="#calibrate-144"><span class="linenos">144</span></a>    <span class="n">probs</span> <span class="o">=</span> <span class="n">prob_train</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="k">if</span> <span class="n">prob_test</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">prob_test</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
-</span><span id="calibrate-145"><a href="#calibrate-145"><span class="linenos">145</span></a>    <span class="n">Xtest</span> <span class="o">=</span> <span class="n">Xtrain</span> <span class="k">if</span> <span class="n">Xtest</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">Xtest</span>
+</span><span id="calibrate-133"><a href="#calibrate-133"><span class="linenos">133</span></a><span class="sd">    Xtest : array, shape (n_samples_test,)</span>
+</span><span id="calibrate-134"><a href="#calibrate-134"><span class="linenos">134</span></a><span class="sd">        Features used for testing</span>
+</span><span id="calibrate-135"><a href="#calibrate-135"><span class="linenos">135</span></a>
+</span><span id="calibrate-136"><a href="#calibrate-136"><span class="linenos">136</span></a><span class="sd">    prob_test : array, shape (n_samples_test,)</span>
+</span><span id="calibrate-137"><a href="#calibrate-137"><span class="linenos">137</span></a><span class="sd">        Probabilities of the positive class to be calibrated (test set). If None it re-calibrate the training set.</span>
+</span><span id="calibrate-138"><a href="#calibrate-138"><span class="linenos">138</span></a>
+</span><span id="calibrate-139"><a href="#calibrate-139"><span class="linenos">139</span></a><span class="sd">    method: string, &#39;platt&#39;, &#39;isotonic&#39;, &#39;temperature_scaling&#39;, &#39;beta&#39;, &#39;HB&#39;, &#39;BBG&#39;, &#39;ENIR&#39;</span>
+</span><span id="calibrate-140"><a href="#calibrate-140"><span class="linenos">140</span></a><span class="sd">        The method to use for calibration. Can be ‘sigmoid’ which corresponds to Platt’s method</span>
+</span><span id="calibrate-141"><a href="#calibrate-141"><span class="linenos">141</span></a><span class="sd">        (i.e. a logistic regression model) or ‘isotonic’ which is a non-parametric approach.</span>
+</span><span id="calibrate-142"><a href="#calibrate-142"><span class="linenos">142</span></a><span class="sd">        It is not advised to use isotonic calibration with too few calibration samples (&lt;&lt;1000) since it tends to overfit.</span>
+</span><span id="calibrate-143"><a href="#calibrate-143"><span class="linenos">143</span></a>
+</span><span id="calibrate-144"><a href="#calibrate-144"><span class="linenos">144</span></a><span class="sd">    **kwargs</span>
+</span><span id="calibrate-145"><a href="#calibrate-145"><span class="linenos">145</span></a><span class="sd">        Additional Args used to fit KRR or EWF</span>
 </span><span id="calibrate-146"><a href="#calibrate-146"><span class="linenos">146</span></a>
-</span><span id="calibrate-147"><a href="#calibrate-147"><span class="linenos">147</span></a>    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;platt&quot;</span><span class="p">:</span>
-</span><span id="calibrate-148"><a href="#calibrate-148"><span class="linenos">148</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
-</span><span id="calibrate-149"><a href="#calibrate-149"><span class="linenos">149</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">Ytrain</span><span class="p">)</span>  <span class="c1"># LR needs X to be 2-dimensional</span>
-</span><span id="calibrate-150"><a href="#calibrate-150"><span class="linenos">150</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">probs</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+</span><span id="calibrate-147"><a href="#calibrate-147"><span class="linenos">147</span></a><span class="sd">    Returns</span>
+</span><span id="calibrate-148"><a href="#calibrate-148"><span class="linenos">148</span></a><span class="sd">    -------</span>
+</span><span id="calibrate-149"><a href="#calibrate-149"><span class="linenos">149</span></a><span class="sd">    array, shape (n_bins,)</span>
+</span><span id="calibrate-150"><a href="#calibrate-150"><span class="linenos">150</span></a><span class="sd">        The calibrated error for test set. (p_calibrated)</span>
 </span><span id="calibrate-151"><a href="#calibrate-151"><span class="linenos">151</span></a>
-</span><span id="calibrate-152"><a href="#calibrate-152"><span class="linenos">152</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;isotonic&quot;</span><span class="p">:</span>
-</span><span id="calibrate-153"><a href="#calibrate-153"><span class="linenos">153</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">IsotonicRegression</span><span class="p">(</span><span class="n">out_of_bounds</span><span class="o">=</span><span class="s2">&quot;clip&quot;</span><span class="p">)</span>
-</span><span id="calibrate-154"><a href="#calibrate-154"><span class="linenos">154</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">)</span>  <span class="c1"># LR needs X to be 2-dimensional</span>
-</span><span id="calibrate-155"><a href="#calibrate-155"><span class="linenos">155</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">probs</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
-</span><span id="calibrate-156"><a href="#calibrate-156"><span class="linenos">156</span></a>
-</span><span id="calibrate-157"><a href="#calibrate-157"><span class="linenos">157</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;temperature_scaling&quot;</span><span class="p">:</span>
-</span><span id="calibrate-158"><a href="#calibrate-158"><span class="linenos">158</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">TemperatureScaling</span><span class="p">()</span>
-</span><span id="calibrate-159"><a href="#calibrate-159"><span class="linenos">159</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">)</span>
-</span><span id="calibrate-160"><a href="#calibrate-160"><span class="linenos">160</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
-</span><span id="calibrate-161"><a href="#calibrate-161"><span class="linenos">161</span></a>
-</span><span id="calibrate-162"><a href="#calibrate-162"><span class="linenos">162</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;beta&quot;</span><span class="p">:</span>
-</span><span id="calibrate-163"><a href="#calibrate-163"><span class="linenos">163</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">BetaCalibration</span><span class="p">()</span>
-</span><span id="calibrate-164"><a href="#calibrate-164"><span class="linenos">164</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">)</span>
-</span><span id="calibrate-165"><a href="#calibrate-165"><span class="linenos">165</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
-</span><span id="calibrate-166"><a href="#calibrate-166"><span class="linenos">166</span></a>
-</span><span id="calibrate-167"><a href="#calibrate-167"><span class="linenos">167</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;HB&quot;</span><span class="p">:</span>
-</span><span id="calibrate-168"><a href="#calibrate-168"><span class="linenos">168</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">HistogramBinning</span><span class="p">()</span>
-</span><span id="calibrate-169"><a href="#calibrate-169"><span class="linenos">169</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">)</span>
-</span><span id="calibrate-170"><a href="#calibrate-170"><span class="linenos">170</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
-</span><span id="calibrate-171"><a href="#calibrate-171"><span class="linenos">171</span></a>
-</span><span id="calibrate-172"><a href="#calibrate-172"><span class="linenos">172</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;BBQ&quot;</span><span class="p">:</span>
-</span><span id="calibrate-173"><a href="#calibrate-173"><span class="linenos">173</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">BBQ</span><span class="p">()</span>
-</span><span id="calibrate-174"><a href="#calibrate-174"><span class="linenos">174</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">)</span>
-</span><span id="calibrate-175"><a href="#calibrate-175"><span class="linenos">175</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
-</span><span id="calibrate-176"><a href="#calibrate-176"><span class="linenos">176</span></a>
-</span><span id="calibrate-177"><a href="#calibrate-177"><span class="linenos">177</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;ENIR&quot;</span><span class="p">:</span>
-</span><span id="calibrate-178"><a href="#calibrate-178"><span class="linenos">178</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">ENIR</span><span class="p">()</span>
-</span><span id="calibrate-179"><a href="#calibrate-179"><span class="linenos">179</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">)</span>
-</span><span id="calibrate-180"><a href="#calibrate-180"><span class="linenos">180</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
-</span><span id="calibrate-181"><a href="#calibrate-181"><span class="linenos">181</span></a>
-</span><span id="calibrate-182"><a href="#calibrate-182"><span class="linenos">182</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;KRR&quot;</span><span class="p">:</span>
-</span><span id="calibrate-183"><a href="#calibrate-183"><span class="linenos">183</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">KRR_calibration</span><span class="p">()</span>
-</span><span id="calibrate-184"><a href="#calibrate-184"><span class="linenos">184</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xtrain</span><span class="p">,</span> <span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span id="calibrate-185"><a href="#calibrate-185"><span class="linenos">185</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xtest</span><span class="p">,</span> <span class="n">probs</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;prob&quot;</span><span class="p">)</span>
-</span><span id="calibrate-186"><a href="#calibrate-186"><span class="linenos">186</span></a>
-</span><span id="calibrate-187"><a href="#calibrate-187"><span class="linenos">187</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;EWF&quot;</span><span class="p">:</span>
-</span><span id="calibrate-188"><a href="#calibrate-188"><span class="linenos">188</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">EWF_calibration</span><span class="p">()</span>
-</span><span id="calibrate-189"><a href="#calibrate-189"><span class="linenos">189</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xtrain</span><span class="p">,</span> <span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span id="calibrate-190"><a href="#calibrate-190"><span class="linenos">190</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xtest</span><span class="p">,</span> <span class="n">probs</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;prob&quot;</span><span class="p">)</span>
-</span><span id="calibrate-191"><a href="#calibrate-191"><span class="linenos">191</span></a>
-</span><span id="calibrate-192"><a href="#calibrate-192"><span class="linenos">192</span></a>    <span class="k">else</span><span class="p">:</span>
-</span><span id="calibrate-193"><a href="#calibrate-193"><span class="linenos">193</span></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Method </span><span class="si">%s</span><span class="s2"> is not defined.&quot;</span> <span class="o">%</span> <span class="n">method</span><span class="p">)</span>
-</span><span id="calibrate-194"><a href="#calibrate-194"><span class="linenos">194</span></a>
-</span><span id="calibrate-195"><a href="#calibrate-195"><span class="linenos">195</span></a>    <span class="n">p_calibrated</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">p_calibrated</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="calibrate-196"><a href="#calibrate-196"><span class="linenos">196</span></a>
-</span><span id="calibrate-197"><a href="#calibrate-197"><span class="linenos">197</span></a>    <span class="c1"># normalize the large numbers and small numbers to one and zero</span>
-</span><span id="calibrate-198"><a href="#calibrate-198"><span class="linenos">198</span></a>    <span class="c1"># p_calibrated[p_calibrated &gt; 1.0] = 1.0</span>
-</span><span id="calibrate-199"><a href="#calibrate-199"><span class="linenos">199</span></a>    <span class="c1"># p_calibrated[p_calibrated &lt; 0.0] = 0.0</span>
+</span><span id="calibrate-152"><a href="#calibrate-152"><span class="linenos">152</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="calibrate-153"><a href="#calibrate-153"><span class="linenos">153</span></a>    <span class="n">probs</span> <span class="o">=</span> <span class="n">prob_train</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="k">if</span> <span class="n">prob_test</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">prob_test</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+</span><span id="calibrate-154"><a href="#calibrate-154"><span class="linenos">154</span></a>    <span class="n">Xtest</span> <span class="o">=</span> <span class="n">Xtrain</span> <span class="k">if</span> <span class="n">Xtest</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">Xtest</span>
+</span><span id="calibrate-155"><a href="#calibrate-155"><span class="linenos">155</span></a>
+</span><span id="calibrate-156"><a href="#calibrate-156"><span class="linenos">156</span></a>    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;platt&quot;</span><span class="p">:</span>
+</span><span id="calibrate-157"><a href="#calibrate-157"><span class="linenos">157</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+</span><span id="calibrate-158"><a href="#calibrate-158"><span class="linenos">158</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">Ytrain</span><span class="p">)</span>  <span class="c1"># LR needs X to be 2-dimensional</span>
+</span><span id="calibrate-159"><a href="#calibrate-159"><span class="linenos">159</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">probs</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+</span><span id="calibrate-160"><a href="#calibrate-160"><span class="linenos">160</span></a>
+</span><span id="calibrate-161"><a href="#calibrate-161"><span class="linenos">161</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;isotonic&quot;</span><span class="p">:</span>
+</span><span id="calibrate-162"><a href="#calibrate-162"><span class="linenos">162</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">IsotonicRegression</span><span class="p">(</span><span class="n">out_of_bounds</span><span class="o">=</span><span class="s2">&quot;clip&quot;</span><span class="p">)</span>
+</span><span id="calibrate-163"><a href="#calibrate-163"><span class="linenos">163</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">)</span>  <span class="c1"># LR needs X to be 2-dimensional</span>
+</span><span id="calibrate-164"><a href="#calibrate-164"><span class="linenos">164</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">probs</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+</span><span id="calibrate-165"><a href="#calibrate-165"><span class="linenos">165</span></a>
+</span><span id="calibrate-166"><a href="#calibrate-166"><span class="linenos">166</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;temperature_scaling&quot;</span><span class="p">:</span>
+</span><span id="calibrate-167"><a href="#calibrate-167"><span class="linenos">167</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">TemperatureScaling</span><span class="p">()</span>
+</span><span id="calibrate-168"><a href="#calibrate-168"><span class="linenos">168</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">)</span>
+</span><span id="calibrate-169"><a href="#calibrate-169"><span class="linenos">169</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
+</span><span id="calibrate-170"><a href="#calibrate-170"><span class="linenos">170</span></a>
+</span><span id="calibrate-171"><a href="#calibrate-171"><span class="linenos">171</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;beta&quot;</span><span class="p">:</span>
+</span><span id="calibrate-172"><a href="#calibrate-172"><span class="linenos">172</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">BetaCalibration</span><span class="p">()</span>
+</span><span id="calibrate-173"><a href="#calibrate-173"><span class="linenos">173</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">)</span>
+</span><span id="calibrate-174"><a href="#calibrate-174"><span class="linenos">174</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
+</span><span id="calibrate-175"><a href="#calibrate-175"><span class="linenos">175</span></a>
+</span><span id="calibrate-176"><a href="#calibrate-176"><span class="linenos">176</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;HB&quot;</span><span class="p">:</span>
+</span><span id="calibrate-177"><a href="#calibrate-177"><span class="linenos">177</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">HistogramBinning</span><span class="p">()</span>
+</span><span id="calibrate-178"><a href="#calibrate-178"><span class="linenos">178</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">)</span>
+</span><span id="calibrate-179"><a href="#calibrate-179"><span class="linenos">179</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
+</span><span id="calibrate-180"><a href="#calibrate-180"><span class="linenos">180</span></a>
+</span><span id="calibrate-181"><a href="#calibrate-181"><span class="linenos">181</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;BBQ&quot;</span><span class="p">:</span>
+</span><span id="calibrate-182"><a href="#calibrate-182"><span class="linenos">182</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">BBQ</span><span class="p">()</span>
+</span><span id="calibrate-183"><a href="#calibrate-183"><span class="linenos">183</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">)</span>
+</span><span id="calibrate-184"><a href="#calibrate-184"><span class="linenos">184</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
+</span><span id="calibrate-185"><a href="#calibrate-185"><span class="linenos">185</span></a>
+</span><span id="calibrate-186"><a href="#calibrate-186"><span class="linenos">186</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;ENIR&quot;</span><span class="p">:</span>
+</span><span id="calibrate-187"><a href="#calibrate-187"><span class="linenos">187</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">ENIR</span><span class="p">()</span>
+</span><span id="calibrate-188"><a href="#calibrate-188"><span class="linenos">188</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">)</span>
+</span><span id="calibrate-189"><a href="#calibrate-189"><span class="linenos">189</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
+</span><span id="calibrate-190"><a href="#calibrate-190"><span class="linenos">190</span></a>
+</span><span id="calibrate-191"><a href="#calibrate-191"><span class="linenos">191</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;KRR&quot;</span><span class="p">:</span>
+</span><span id="calibrate-192"><a href="#calibrate-192"><span class="linenos">192</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">KRR_calibration</span><span class="p">()</span>
+</span><span id="calibrate-193"><a href="#calibrate-193"><span class="linenos">193</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xtrain</span><span class="p">,</span> <span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span id="calibrate-194"><a href="#calibrate-194"><span class="linenos">194</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xtest</span><span class="p">,</span> <span class="n">probs</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;prob&quot;</span><span class="p">)</span>
+</span><span id="calibrate-195"><a href="#calibrate-195"><span class="linenos">195</span></a>
+</span><span id="calibrate-196"><a href="#calibrate-196"><span class="linenos">196</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;EWF&quot;</span><span class="p">:</span>
+</span><span id="calibrate-197"><a href="#calibrate-197"><span class="linenos">197</span></a>        <span class="n">model</span> <span class="o">=</span> <span class="n">EWF_calibration</span><span class="p">()</span>
+</span><span id="calibrate-198"><a href="#calibrate-198"><span class="linenos">198</span></a>        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xtrain</span><span class="p">,</span> <span class="n">prob_train</span><span class="p">,</span> <span class="n">Ytrain</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span id="calibrate-199"><a href="#calibrate-199"><span class="linenos">199</span></a>        <span class="n">p_calibrated</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xtest</span><span class="p">,</span> <span class="n">probs</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;prob&quot;</span><span class="p">)</span>
 </span><span id="calibrate-200"><a href="#calibrate-200"><span class="linenos">200</span></a>
-</span><span id="calibrate-201"><a href="#calibrate-201"><span class="linenos">201</span></a>    <span class="k">return</span> <span class="n">p_calibrated</span>  <span class="c1"># f-hat -- f(x) = oracle = f-hat + b(x)</span>
+</span><span id="calibrate-201"><a href="#calibrate-201"><span class="linenos">201</span></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="calibrate-202"><a href="#calibrate-202"><span class="linenos">202</span></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Method </span><span class="si">%s</span><span class="s2"> is not defined.&quot;</span> <span class="o">%</span> <span class="n">method</span><span class="p">)</span>
+</span><span id="calibrate-203"><a href="#calibrate-203"><span class="linenos">203</span></a>
+</span><span id="calibrate-204"><a href="#calibrate-204"><span class="linenos">204</span></a>    <span class="n">p_calibrated</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">p_calibrated</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="calibrate-205"><a href="#calibrate-205"><span class="linenos">205</span></a>
+</span><span id="calibrate-206"><a href="#calibrate-206"><span class="linenos">206</span></a>    <span class="c1"># normalize the large numbers and small numbers to one and zero</span>
+</span><span id="calibrate-207"><a href="#calibrate-207"><span class="linenos">207</span></a>    <span class="c1"># p_calibrated[p_calibrated &gt; 1.0] = 1.0</span>
+</span><span id="calibrate-208"><a href="#calibrate-208"><span class="linenos">208</span></a>    <span class="c1"># p_calibrated[p_calibrated &lt; 0.0] = 0.0</span>
+</span><span id="calibrate-209"><a href="#calibrate-209"><span class="linenos">209</span></a>
+</span><span id="calibrate-210"><a href="#calibrate-210"><span class="linenos">210</span></a>    <span class="k">return</span> <span class="n">p_calibrated</span>  <span class="c1"># f-hat -- f(x) = oracle = f-hat + b(x)</span>
 </span></pre></div>
 
 
@@ -627,16 +645,21 @@ the theoretical credible level alpha</li>
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>y_true</strong> (array, shape (n_samples_train,)):
-True targets for the training set.</li>
-<li><strong>y_prob_train</strong> (array, shape (n_samples_train,)):
-Probabilities of the positive class to train a calibration model.</li>
-<li><strong>y_prob_test</strong> (array, shape (n_samples_test,)):
+<li><strong>Xtrain</strong> (array, shape (n_samples_train,)):
+Features used for training</li>
+<li><strong>prob_train</strong> (array, shape (n_samples_train,)):
+Probabilities of positive class to train a calibration model</li>
+<li><strong>Ytrain</strong> (array, shape (n_samples_train,)):
+Values used for training</li>
+<li><strong>Xtest</strong> (array, shape (n_samples_test,)):
+Features used for testing</li>
+<li><strong>prob_test</strong> (array, shape (n_samples_test,)):
 Probabilities of the positive class to be calibrated (test set). If None it re-calibrate the training set.</li>
 <li><strong>method</strong> (string, 'platt', 'isotonic', 'temperature_scaling', 'beta', 'HB', 'BBG', 'ENIR'):
 The method to use for calibration. Can be ‘sigmoid’ which corresponds to Platt’s method
 (i.e. a logistic regression model) or ‘isotonic’ which is a non-parametric approach.
 It is not advised to use isotonic calibration with too few calibration samples (&lt;&lt;1000) since it tends to overfit.</li>
+<li><strong>**kwargs</strong>: Additional Args used to fit KRR or EWF</li>
 </ul>
 
 <h6 id="returns">Returns</h6>
@@ -659,48 +682,48 @@ It is not advised to use isotonic calibration with too few calibration samples (
 
     </div>
     <a class="headerlink" href="#calibration_error"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="calibration_error-217"><a href="#calibration_error-217"><span class="linenos">217</span></a><span class="k">def</span> <span class="nf">calibration_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_prob</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;ECE&quot;</span><span class="p">):</span>
-</span><span id="calibration_error-218"><a href="#calibration_error-218"><span class="linenos">218</span></a>    <span class="sd">&quot;&quot;&quot;</span>
-</span><span id="calibration_error-219"><a href="#calibration_error-219"><span class="linenos">219</span></a><span class="sd">    Compute calibration error given true targets and predicted probabilities.</span>
-</span><span id="calibration_error-220"><a href="#calibration_error-220"><span class="linenos">220</span></a><span class="sd">     Calibration curves may also be referred to as reliability diagrams.</span>
-</span><span id="calibration_error-221"><a href="#calibration_error-221"><span class="linenos">221</span></a>
-</span><span id="calibration_error-222"><a href="#calibration_error-222"><span class="linenos">222</span></a><span class="sd">    Parameters</span>
-</span><span id="calibration_error-223"><a href="#calibration_error-223"><span class="linenos">223</span></a><span class="sd">    ----------</span>
-</span><span id="calibration_error-224"><a href="#calibration_error-224"><span class="linenos">224</span></a><span class="sd">    y_true : array, shape (n_samples,)</span>
-</span><span id="calibration_error-225"><a href="#calibration_error-225"><span class="linenos">225</span></a><span class="sd">        True targets.</span>
-</span><span id="calibration_error-226"><a href="#calibration_error-226"><span class="linenos">226</span></a>
-</span><span id="calibration_error-227"><a href="#calibration_error-227"><span class="linenos">227</span></a><span class="sd">    y_prob : array, shape (n_samples,)</span>
-</span><span id="calibration_error-228"><a href="#calibration_error-228"><span class="linenos">228</span></a><span class="sd">        Probabilities of the positive class.</span>
-</span><span id="calibration_error-229"><a href="#calibration_error-229"><span class="linenos">229</span></a>
-</span><span id="calibration_error-230"><a href="#calibration_error-230"><span class="linenos">230</span></a><span class="sd">    method : string, default=&#39;ECE&#39;, {&#39;ECE&#39;, &#39;MCE&#39;, &#39;BS&#39;}</span>
-</span><span id="calibration_error-231"><a href="#calibration_error-231"><span class="linenos">231</span></a><span class="sd">        Which method to be used to compute calibration error.</span>
-</span><span id="calibration_error-232"><a href="#calibration_error-232"><span class="linenos">232</span></a>
-</span><span id="calibration_error-233"><a href="#calibration_error-233"><span class="linenos">233</span></a><span class="sd">    n_bins : int</span>
-</span><span id="calibration_error-234"><a href="#calibration_error-234"><span class="linenos">234</span></a><span class="sd">        Number of bins. Note that a bigger number requires more data.</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="calibration_error-226"><a href="#calibration_error-226"><span class="linenos">226</span></a><span class="k">def</span> <span class="nf">calibration_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_prob</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;ECE&quot;</span><span class="p">):</span>
+</span><span id="calibration_error-227"><a href="#calibration_error-227"><span class="linenos">227</span></a>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span id="calibration_error-228"><a href="#calibration_error-228"><span class="linenos">228</span></a><span class="sd">    Compute calibration error given true targets and predicted probabilities.</span>
+</span><span id="calibration_error-229"><a href="#calibration_error-229"><span class="linenos">229</span></a><span class="sd">     Calibration curves may also be referred to as reliability diagrams.</span>
+</span><span id="calibration_error-230"><a href="#calibration_error-230"><span class="linenos">230</span></a>
+</span><span id="calibration_error-231"><a href="#calibration_error-231"><span class="linenos">231</span></a><span class="sd">    Parameters</span>
+</span><span id="calibration_error-232"><a href="#calibration_error-232"><span class="linenos">232</span></a><span class="sd">    ----------</span>
+</span><span id="calibration_error-233"><a href="#calibration_error-233"><span class="linenos">233</span></a><span class="sd">    y_true : array, shape (n_samples,)</span>
+</span><span id="calibration_error-234"><a href="#calibration_error-234"><span class="linenos">234</span></a><span class="sd">        True targets.</span>
 </span><span id="calibration_error-235"><a href="#calibration_error-235"><span class="linenos">235</span></a>
-</span><span id="calibration_error-236"><a href="#calibration_error-236"><span class="linenos">236</span></a><span class="sd">    Returns</span>
-</span><span id="calibration_error-237"><a href="#calibration_error-237"><span class="linenos">237</span></a><span class="sd">    -------</span>
-</span><span id="calibration_error-238"><a href="#calibration_error-238"><span class="linenos">238</span></a><span class="sd">    float</span>
-</span><span id="calibration_error-239"><a href="#calibration_error-239"><span class="linenos">239</span></a><span class="sd">        calibration error score</span>
-</span><span id="calibration_error-240"><a href="#calibration_error-240"><span class="linenos">240</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="calibration_error-236"><a href="#calibration_error-236"><span class="linenos">236</span></a><span class="sd">    y_prob : array, shape (n_samples,)</span>
+</span><span id="calibration_error-237"><a href="#calibration_error-237"><span class="linenos">237</span></a><span class="sd">        Probabilities of the positive class.</span>
+</span><span id="calibration_error-238"><a href="#calibration_error-238"><span class="linenos">238</span></a>
+</span><span id="calibration_error-239"><a href="#calibration_error-239"><span class="linenos">239</span></a><span class="sd">    method : string, default=&#39;ECE&#39;, {&#39;ECE&#39;, &#39;MCE&#39;, &#39;BS&#39;}</span>
+</span><span id="calibration_error-240"><a href="#calibration_error-240"><span class="linenos">240</span></a><span class="sd">        Which method to be used to compute calibration error.</span>
 </span><span id="calibration_error-241"><a href="#calibration_error-241"><span class="linenos">241</span></a>
-</span><span id="calibration_error-242"><a href="#calibration_error-242"><span class="linenos">242</span></a>    <span class="c1"># compute fraction of positive cases per y_prob in a bin.</span>
-</span><span id="calibration_error-243"><a href="#calibration_error-243"><span class="linenos">243</span></a>    <span class="c1"># See scikit-learn documentation for details</span>
-</span><span id="calibration_error-244"><a href="#calibration_error-244"><span class="linenos">244</span></a>    <span class="n">fraction_of_positives</span><span class="p">,</span> <span class="n">mean_predicted_value</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span>
-</span><span id="calibration_error-245"><a href="#calibration_error-245"><span class="linenos">245</span></a>        <span class="n">y_true</span><span class="p">,</span> <span class="n">y_prob</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;uniform&quot;</span>
-</span><span id="calibration_error-246"><a href="#calibration_error-246"><span class="linenos">246</span></a>    <span class="p">)</span>
-</span><span id="calibration_error-247"><a href="#calibration_error-247"><span class="linenos">247</span></a>
-</span><span id="calibration_error-248"><a href="#calibration_error-248"><span class="linenos">248</span></a>    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;ECE&quot;</span><span class="p">:</span>
-</span><span id="calibration_error-249"><a href="#calibration_error-249"><span class="linenos">249</span></a>        <span class="n">hist_count</span> <span class="o">=</span> <span class="n">_counts_per_bin</span><span class="p">(</span><span class="n">y_prob</span><span class="p">,</span> <span class="n">n_bins</span><span class="p">)</span>
-</span><span id="calibration_error-250"><a href="#calibration_error-250"><span class="linenos">250</span></a>        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
-</span><span id="calibration_error-251"><a href="#calibration_error-251"><span class="linenos">251</span></a>            <span class="n">hist_count</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">fraction_of_positives</span> <span class="o">-</span> <span class="n">mean_predicted_value</span><span class="p">)</span>
-</span><span id="calibration_error-252"><a href="#calibration_error-252"><span class="linenos">252</span></a>        <span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">hist_count</span><span class="p">)</span>
-</span><span id="calibration_error-253"><a href="#calibration_error-253"><span class="linenos">253</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;MCE&quot;</span><span class="p">:</span>
-</span><span id="calibration_error-254"><a href="#calibration_error-254"><span class="linenos">254</span></a>        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">fraction_of_positives</span> <span class="o">-</span> <span class="n">mean_predicted_value</span><span class="p">))</span>
-</span><span id="calibration_error-255"><a href="#calibration_error-255"><span class="linenos">255</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;BS&quot;</span><span class="p">:</span>
-</span><span id="calibration_error-256"><a href="#calibration_error-256"><span class="linenos">256</span></a>        <span class="k">return</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_prob</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="calibration_error-257"><a href="#calibration_error-257"><span class="linenos">257</span></a>    <span class="k">else</span><span class="p">:</span>
-</span><span id="calibration_error-258"><a href="#calibration_error-258"><span class="linenos">258</span></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Method </span><span class="si">%s</span><span class="s2"> is not defined.&quot;</span> <span class="o">%</span> <span class="n">method</span><span class="p">)</span>
+</span><span id="calibration_error-242"><a href="#calibration_error-242"><span class="linenos">242</span></a><span class="sd">    n_bins : int</span>
+</span><span id="calibration_error-243"><a href="#calibration_error-243"><span class="linenos">243</span></a><span class="sd">        Number of bins. Note that a bigger number requires more data.</span>
+</span><span id="calibration_error-244"><a href="#calibration_error-244"><span class="linenos">244</span></a>
+</span><span id="calibration_error-245"><a href="#calibration_error-245"><span class="linenos">245</span></a><span class="sd">    Returns</span>
+</span><span id="calibration_error-246"><a href="#calibration_error-246"><span class="linenos">246</span></a><span class="sd">    -------</span>
+</span><span id="calibration_error-247"><a href="#calibration_error-247"><span class="linenos">247</span></a><span class="sd">    float</span>
+</span><span id="calibration_error-248"><a href="#calibration_error-248"><span class="linenos">248</span></a><span class="sd">        calibration error score</span>
+</span><span id="calibration_error-249"><a href="#calibration_error-249"><span class="linenos">249</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="calibration_error-250"><a href="#calibration_error-250"><span class="linenos">250</span></a>
+</span><span id="calibration_error-251"><a href="#calibration_error-251"><span class="linenos">251</span></a>    <span class="c1"># compute fraction of positive cases per y_prob in a bin.</span>
+</span><span id="calibration_error-252"><a href="#calibration_error-252"><span class="linenos">252</span></a>    <span class="c1"># See scikit-learn documentation for details</span>
+</span><span id="calibration_error-253"><a href="#calibration_error-253"><span class="linenos">253</span></a>    <span class="n">fraction_of_positives</span><span class="p">,</span> <span class="n">mean_predicted_value</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span>
+</span><span id="calibration_error-254"><a href="#calibration_error-254"><span class="linenos">254</span></a>        <span class="n">y_true</span><span class="p">,</span> <span class="n">y_prob</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;uniform&quot;</span>
+</span><span id="calibration_error-255"><a href="#calibration_error-255"><span class="linenos">255</span></a>    <span class="p">)</span>
+</span><span id="calibration_error-256"><a href="#calibration_error-256"><span class="linenos">256</span></a>
+</span><span id="calibration_error-257"><a href="#calibration_error-257"><span class="linenos">257</span></a>    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;ECE&quot;</span><span class="p">:</span>
+</span><span id="calibration_error-258"><a href="#calibration_error-258"><span class="linenos">258</span></a>        <span class="n">hist_count</span> <span class="o">=</span> <span class="n">_counts_per_bin</span><span class="p">(</span><span class="n">y_prob</span><span class="p">,</span> <span class="n">n_bins</span><span class="p">)</span>
+</span><span id="calibration_error-259"><a href="#calibration_error-259"><span class="linenos">259</span></a>        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+</span><span id="calibration_error-260"><a href="#calibration_error-260"><span class="linenos">260</span></a>            <span class="n">hist_count</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">fraction_of_positives</span> <span class="o">-</span> <span class="n">mean_predicted_value</span><span class="p">)</span>
+</span><span id="calibration_error-261"><a href="#calibration_error-261"><span class="linenos">261</span></a>        <span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">hist_count</span><span class="p">)</span>
+</span><span id="calibration_error-262"><a href="#calibration_error-262"><span class="linenos">262</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;MCE&quot;</span><span class="p">:</span>
+</span><span id="calibration_error-263"><a href="#calibration_error-263"><span class="linenos">263</span></a>        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">fraction_of_positives</span> <span class="o">-</span> <span class="n">mean_predicted_value</span><span class="p">))</span>
+</span><span id="calibration_error-264"><a href="#calibration_error-264"><span class="linenos">264</span></a>    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;BS&quot;</span><span class="p">:</span>
+</span><span id="calibration_error-265"><a href="#calibration_error-265"><span class="linenos">265</span></a>        <span class="k">return</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_prob</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="calibration_error-266"><a href="#calibration_error-266"><span class="linenos">266</span></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="calibration_error-267"><a href="#calibration_error-267"><span class="linenos">267</span></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Method </span><span class="si">%s</span><span class="s2"> is not defined.&quot;</span> <span class="o">%</span> <span class="n">method</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -830,7 +853,7 @@ Number of bins. Note that a bigger number requires more data.</li>
                 }
 
                 let heading;
-                switch (result.doc.type) {
+                switch (result.doc.kind) {
                     case "function":
                         if (doc.fullname.endsWith(".__init__")) {
                             heading = `<span class="name">${doc.fullname.replace(/\.__init__$/, "")}</span>${doc.signature}`;
@@ -857,7 +880,7 @@ Number of bins. Note that a bigger number requires more data.</li>
                 }
                 html += `
                         <section class="search-result">
-                        <a href="${url}" class="attr ${doc.type}">${heading}</a>
+                        <a href="${url}" class="attr ${doc.kind}">${heading}</a>
                         <div class="docstring">${doc.doc}</div>
                         </section>
                     `;
